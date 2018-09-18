@@ -12,6 +12,8 @@ import { WebBrowser, Audio, Permissions, FileSystem } from "expo";
 
 import { MonoText } from "../components/StyledText";
 
+import { uploadToFB } from "../firebase";
+
 export default class HomeScreen extends React.Component {
   constructor() {
     super();
@@ -88,8 +90,11 @@ export default class HomeScreen extends React.Component {
       throw e;
     }
     const info = await FileSystem.getInfoAsync(this.recording.getURI());
-    console.log(`FILE INFO: ${JSON.stringify(info)}`);
-    console.log(info.uri);
+    const response = await fetch(info.uri).catch(e => {
+      throw e;
+    });
+    uploadToFB(response.blob());
+
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
       interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
