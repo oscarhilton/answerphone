@@ -1,17 +1,6 @@
 import React from "react";
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { WebBrowser, Audio, Permissions, FileSystem } from "expo";
-
-import { MonoText } from "../components/StyledText";
-
+import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Audio, Permissions, FileSystem } from "expo";
 import { uploadToFB } from "../firebase";
 
 export default class HomeScreen extends React.Component {
@@ -115,6 +104,7 @@ export default class HomeScreen extends React.Component {
     this.sound.playAsync();
     this.setState({
       loading: false,
+      recording: false,
     });
   }
 
