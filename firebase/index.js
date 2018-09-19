@@ -37,6 +37,10 @@ export const makeDatabaseEntry = url => {
   return database.ref("/recordings/" + key).set(model);
 };
 
-export const getAllRecordings = () => {
-  return database.ref("/recordings/").once("value");
+export const getAllRecordings = async () => {
+  const res = await database.ref("/recordings").once("value");
+  const recordings = res.val();
+  return Object.keys(recordings).map(key => ({
+    ...recordings[key],
+  }));
 };
