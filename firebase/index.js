@@ -12,10 +12,7 @@ export const initializeFirebase = () => {
 
 export const uploadToFB = async blob => {
   const blobToSend = await blob;
-  const ref = firebase.storage().ref().child(uuid.v4());
+  const ref = firebase.storage().ref().child(blobToSend._data.name);
   const snapshot = await ref.put(blobToSend);
-  console.log(snapshot);
-  console.log("==============");
-  console.log(snapshot.downloadURL);
   return snapshot.downloadURL;
 };
