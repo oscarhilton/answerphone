@@ -11,7 +11,7 @@ export default class LinksScreen extends React.Component {
     this.soundObject = null;
     this.state = {
       audioIndex: 0,
-    }
+    };
     this.playNext = this.playNext.bind(this);
     this.playRecording = this.playRecording.bind(this);
   }
@@ -23,7 +23,7 @@ export default class LinksScreen extends React.Component {
     this.recordings = await getAllRecordings();
     this.setState({
       audioIndex: 0,
-    })
+    });
   }
 
   async playRecording() {
@@ -34,9 +34,17 @@ export default class LinksScreen extends React.Component {
     }
     this.soundObject = new Expo.Audio.Sound();
     try {
-      await this.soundObject.loadAsync({ uri: this.recordings[this.state.audioIndex].url });
+      await this.soundObject.loadAsync({
+        uri: this.recordings[this.state.audioIndex].url,
+      });
       await this.soundObject.playAsync();
       this.soundObject.setOnPlaybackStatusUpdate(update => {
+        const soundDuration = Math.floor(
+          (update.positionMillis / update.durationMillis) * 100
+        );
+
+        console.log(update);
+
         if (update.didJustFinish) {
           console.log("finished!");
           this.playNext();
@@ -49,7 +57,15 @@ export default class LinksScreen extends React.Component {
 
   playNext() {
     console.log("click!");
-    this.setState({ audioIndex: this.state.audioIndex < (this.recordings.length - 1) ? this.state.audioIndex + 1 : 0}, () => this.playRecording());
+    this.setState(
+      {
+        audioIndex:
+          this.state.audioIndex < this.recordings.length - 1
+            ? this.state.audioIndex + 1
+            : 0,
+      },
+      () => this.playRecording()
+    );
   }
 
   render() {
