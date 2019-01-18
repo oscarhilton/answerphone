@@ -118,19 +118,15 @@ export default class HomeScreen extends React.Component {
         >
           <View style={styles.getStartedContainer}>
             {!recording ? (
-              <Text
-                style={styles.getStartedText}
+              <View
+                style={[styles.readyToRecord, styles.recordButton]}
                 onPress={this._beginRecording.bind(this)}
-              >
-                Start recording
-              </Text>
+              />
             ) : (
               <Text
-                style={styles.getStartedText}
+                style={[styles.recording, styles.recordButton]}
                 onPress={this._endRecording.bind(this)}
-              >
-                Stop recording
-              </Text>
+              />
             )}
           </View>
         </ScrollView>
@@ -142,7 +138,7 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "rgb(146, 94, 176)",
   },
   developmentModeText: {
     marginBottom: 20,
@@ -158,6 +154,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     marginBottom: 20,
+  },
+  recordButton: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    bottom: 10,
+  },
+  readyToRecord: {
+    backgroundColor: "white",
+  },
+  recording: {
+    backgroundColor: "red",
   },
   welcomeImage: {
     width: 100,
