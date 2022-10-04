@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
-    "expo": "^30.0.1",
+    "expo": "^46.0.14",
     "firebase": "^5.5.0",
     "moment": "^2.22.2",
     "npm": "^6.4.1",
